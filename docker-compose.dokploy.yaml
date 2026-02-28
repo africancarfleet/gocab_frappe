@@ -33,7 +33,7 @@ services:
         bench set-config -gp socketio_port $$SOCKETIO_PORT;
         bench set-config -g chromium_path /usr/bin/chromium-headless-shell;
         bench set-config -g root_login $$DB_ROOT_USER;
-        bench set-config -gp root_password $$DB_ROOT_PASSWORD;
+        bench set-config -g root_password $$DB_ROOT_PASSWORD;
     depends_on:
       redis-cache:
         condition: service_started
