@@ -5,11 +5,7 @@ services:
       configurator:
         condition: service_completed_successfully
         required: true
-    build:
-      context: .
-      dockerfile: images/custom/Containerfile
-      args:
-        APPS_JSON_BASE64: ${APPS_JSON_BASE64}
+    image: custom:latest
     networks:
       default: null
     platform: linux/amd64
@@ -21,6 +17,11 @@ services:
         target: /home/frappe/frappe-bench/sites
         volume: {}
   configurator:
+    build:
+      context: .
+      dockerfile: images/custom/Containerfile
+      args:
+        APPS_JSON_BASE64: ${APPS_JSON_BASE64}
     command:
       - |
         ls -1 apps > sites/apps.txt;
