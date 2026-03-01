@@ -1,0 +1,54 @@
+services:
+  configurator:
+    env_file: .env
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+    depends_on:
+      db:
+        condition: service_healthy
+
+  backend:
+    env_file: .env
+
+  frontend:
+    env_file: .env
+    ports:
+      - "8080:8080"
+
+  websocket:
+    env_file: .env
+
+  queue-short:
+    env_file: .env
+
+  queue-long:
+    env_file: .env
+
+  scheduler:
+    env_file: .env
+
+  db:
+    image: mariadb:11.8
+    healthcheck:
+      test: ["CMD", "healthcheck.sh", "--connect", "--innodb_initialized"]
+      start_period: 5s
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+    command:
+      - --character-set-server=utf8mb4
+      - --collation-server=utf8mb4_unicode_ci
+      - --skip-character-set-client-handshake
+      - --skip-innodb-read-only-compressed
+    environment:
+      MYSQL_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-123}
+      MARIADB_AUTO_UPGRADE: 1
+    volumes:
+      - db-data:/var/lib/mysql
+    networks:
+      default: null
+
+volumes:
+  db-data:
