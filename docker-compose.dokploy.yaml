@@ -45,7 +45,7 @@ services:
       - -c
     environment:
       DB_HOST: ${DB_HOST:-}
-      DB_PORT: ${DB_PORT:-5432}
+      DB_PORT: ${DB_PORT:-3306}
       REDIS_CACHE: redis-cache:6379
       REDIS_QUEUE: redis-queue:6379
       SOCKETIO_PORT: "9000"

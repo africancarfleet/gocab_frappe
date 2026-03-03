@@ -6,7 +6,7 @@ DB_NAME="${2:?Missing db name}"
 DB_USER="${3:?Missing db user}"
 DB_PASSWORD="${4:?Missing db password}"
 ADMIN_PASSWORD="${5:?Missing admin password}"
-DB_TYPE="${6:-postgres}"
+DB_TYPE="${6:-mariadb}"
 
 echo "Creating site: $SITE_NAME (db: $DB_TYPE, database: $DB_NAME)"
 
