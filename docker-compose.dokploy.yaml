@@ -33,8 +33,6 @@ services:
         bench set-config -g redis_socketio "redis://$$REDIS_QUEUE";
         bench set-config -gp socketio_port $$SOCKETIO_PORT;
         bench set-config -g chromium_path /usr/bin/chromium-headless-shell;
-        bench set-config -g root_login $$DB_ROOT_USER;
-        bench set-config -g root_password $$DB_ROOT_PASSWORD;
     depends_on:
       redis-cache:
         condition: service_started
@@ -47,12 +45,10 @@ services:
       - -c
     environment:
       DB_HOST: ${DB_HOST:-}
-      DB_PORT: "3306"
+      DB_PORT: ${DB_PORT:-5432}
       REDIS_CACHE: redis-cache:6379
       REDIS_QUEUE: redis-queue:6379
       SOCKETIO_PORT: "9000"
-      DB_ROOT_USER: ${DB_ROOT_USER:-root}
-      DB_ROOT_PASSWORD: ${DB_ROOT_PASSWORD:-}
     image: custom:latest
     networks:
       default: null
