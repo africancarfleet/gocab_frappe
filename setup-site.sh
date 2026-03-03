@@ -1,13 +1,20 @@
 #!/bin/bash
 set -e
 
-SITE_NAME="${1:?Usage: ./setup-site.sh <site-name> <db-root-password> <admin-password>}"
-DB_ROOT_PASSWORD="${2:?Missing db root password}"
-ADMIN_PASSWORD="${3:?Missing admin password}"
+SITE_NAME="${1:?Usage: ./setup-site.sh <site-name> <db-name> <db-user> <db-password> <admin-password> [db-type]}"
+DB_NAME="${2:?Missing db name}"
+DB_USER="${3:?Missing db user}"
+DB_PASSWORD="${4:?Missing db password}"
+ADMIN_PASSWORD="${5:?Missing admin password}"
+DB_TYPE="${6:-postgres}"
 
-echo "Creating site: $SITE_NAME"
+echo "Creating site: $SITE_NAME (db: $DB_TYPE, database: $DB_NAME)"
+
 bench new-site "$SITE_NAME" \
-    --mariadb-root-password "$DB_ROOT_PASSWORD" \
+    --db-type "$DB_TYPE" \
+    --db-name "$DB_NAME" \
+    --db-user "$DB_USER" \
+    --db-password "$DB_PASSWORD" \
     --admin-password "$ADMIN_PASSWORD" \
     --install-app lms \
     --install-app gocab_learning
