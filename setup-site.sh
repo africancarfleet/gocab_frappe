@@ -11,6 +11,7 @@ DB_TYPE="${6:-postgres}"
 echo "Creating site: $SITE_NAME (db: $DB_TYPE, database: $DB_NAME)"
 
 bench new-site "$SITE_NAME" \
+    --force \
     --db-type "$DB_TYPE" \
     --db-name "$DB_NAME" \
     --db-user "$DB_USER" \
